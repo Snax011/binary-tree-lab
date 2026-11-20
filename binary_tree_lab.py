@@ -6,10 +6,24 @@ class TreeNode:
         self.left: Optional['TreeNode'] = None
         self.right: Optional['TreeNode'] = None
 
-# TODO: Implement the max_depth function
 def max_depth(root: Optional[TreeNode]) -> int:
-    pass
+    """Return the number of nodes on the longest root-to-leaf path."""
+    if root is None:
+        return 0
 
-# TODO: Implement the lowest_common_ancestor function
+    left_depth = max_depth(root.left)
+    right_depth = max_depth(root.right)
+    return max(left_depth, right_depth) + 1
+
+
 def lowest_common_ancestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-    pass
+    """Find the lowest common ancestor of two nodes in a binary search tree."""
+    while root:
+        if p.val < root.val and q.val < root.val:
+            root = root.left
+        elif p.val > root.val and q.val > root.val:
+            root = root.right
+        else:
+            return root
+
+    raise ValueError("Both target nodes must exist in the binary search tree")
